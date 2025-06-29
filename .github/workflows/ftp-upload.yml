@@ -1,0 +1,19 @@
+name: FTP Upload
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Upload to FTP
+        uses: sebastianpopp/ftp-action@v2
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: .dist
+          remoteDir: /
